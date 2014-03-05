@@ -25,7 +25,7 @@ View the [plugin documentation](http://plugins.krajee.com/strength-meter) and [p
 
 1. Latest [JQuery](http://jquery.com/)
 2. Most modern browsers supporting CSS3 & JQuery. For Internet Explorer, one must use IE versions 9 and above.
-3. [Bootstrap 3.x](http://getbootstrap.com/) is optional. The plugin templates use the Bootstrap 3.x HTML markup by default. So for the default markup to render correct, you would need Bootstrap 3.x to view the styles properly. If you do not wish to use Bootstrap, you can easily override the templates with your markup and styles.
+3. [Bootstrap 3.x](http://getbootstrap.com/) is optional. The plugin templates use the Bootstrap 3.x markup by default. So for the default markup to render correct, you would need Bootstrap 3.x CSS to view the styles properly. If you do not wish to use Bootstrap, you can easily override the templates with your markup and styles.
 
 ## Installation
 
@@ -155,7 +155,7 @@ _string_ the CSS class for displaying the score. Defaults to `kv-score`.
 _string_ the CSS class for displaying the verdict. Defaults to `kv-verdict`.
 
 #### containerClass
-_string_ the CSS class for displaying the verdict. Defaults to `kv-password`.
+_string_ the CSS class for wrapping the whole widget. Defaults to `kv-password`.
 
 #### inputClass
 _string_ the CSS class for displaying the password input. Defaults to `form-control`.
@@ -189,6 +189,26 @@ _array_ the verdict CSS classes corresponding to each strength verdict (0 to 6).
         4: 'label label-primary',
         5: 'label label-success',
     }
+
+#### rules
+_array_ the strength validation rules. Defaults to:
+
+    {
+        midChar: 2,
+        consecAlphaUC: 2,
+        consecAlphaLC: 2,
+        consecNumber: 2,
+        seqAlpha: 3,
+        seqNumber: 3,
+        seqSymbol: 3,
+        length: 4,
+        number: 4,
+        symbol: 6
+    }
+
+Each rule element corresponds to the following:
+
+1. `midChar`: 
 
 ### Plugin Events
 The plugin supports these events:
