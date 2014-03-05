@@ -9,6 +9,18 @@
  * Year: 2013
  * For more Yii related demos visit http://demos.krajee.com
  */
+.kv-container {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+.kv-container td {
+    vertical-align: middle;
+}
+.kv-meter-container {
+    width: 130px;
+}
 .kv-meter {
     text-align: center;
 }

@@ -4,19 +4,27 @@
  * 
  * A dynamic strength meter for password input validation with various configurable options.
  * 
- * Enhancement of password meter created by Jeff Todnem (http://www.todnem.com/)
+ * The strength algorith rules are inspired from inputs on password meter 
+ * created by Jeff Todnem (http://www.todnem.com/)
  * 
  * Built originally for Yii Framework 2.0. But is usable across frameworks & scenarios.
  * For more JQuery plugins visit http://plugins.krajee.com
  * For more Yii related demos visit http://demos.krajee.com
+ * @see http://plugins.krajee.com/strength-meter
+ * @see http://github.com/kartik-v/strength-meter
  */
 (function($) {
+    "use strict";
+
     String.prototype.strReverse = function() {
         var newstring = "";
         for (var s = 0; s < this.length; s++) {
             newstring = this.charAt(s) + newstring;
         }
         return newstring;
+    };
+    var uniqId = function() {
+        return Math.round(new Date().getTime() + (Math.random() * 100));
     };
     var isEmpty = function(value, trim) {
         return value === null || value === undefined || value == []
@@ -46,18 +54,18 @@
         return 5;
     };
 
-    // Calculate the score based on keyed in password text
-    var getScore = function(text, config) {
-        // Simultaneous variable declaration and value assignment aren't supported in IE apparently
-        // so I'm forced to assign the same value individually per var to support a crappy browser *sigh* 
+    /** 
+     * The main scoring algorithm. Calculate the score based on keyed in password text 
+     */
+    var getScore = function(text, rules) {
         var nScore = 0, nLength = 0, nAlphaUC = 0, nAlphaLC = 0, nNumber = 0,
             nSymbol = 0, nMidChar = 0, nUnqChar = 0, nRepChar = 0, nRepInc = 0,
             nConsecAlphaUC = 0, nConsecAlphaLC = 0, nConsecNumber = 0, nConsecSymbol = 0,
             nConsecCharType = 0, nSeqAlpha = 0, nSeqNumber = 0, nSeqSymbol = 0, nSeqChar = 0;
-        var nMultMidChar = config.midChar, nMultConsecAlphaUC = config.consecAlphaUC,
-            nMultConsecAlphaLC = config.consecAlphaLC, nMultConsecNumber = config.consecNumber;
-        var nMultSeqAlpha = config.seqAlpha, nMultSeqNumber = config.seqNumber, nMultSeqSymbol = config.seqSymbol;
-        var nMultLength = config.length, nMultNumber = config.number, nMultSymbol = config.symbol;
+        var nMultMidChar = rules.midChar, nMultConsecAlphaUC = rules.consecAlphaUC,
+            nMultConsecAlphaLC = rules.consecAlphaLC, nMultConsecNumber = rules.consecNumber;
+        var nMultSeqAlpha = rules.seqAlpha, nMultSeqNumber = rules.seqNumber, nMultSeqSymbol = rules.seqSymbol;
+        var nMultLength = rules.length, nMultNumber = rules.number, nMultSymbol = rules.symbol;
         var nTmpAlphaUC = "", nTmpAlphaLC = "", nTmpNumber = "", nTmpSymbol = "";
         var sAlphas = "abcdefghijklmnopqrstuvwxyz";
         var sNumerics = "01234567890";
@@ -214,16 +222,18 @@
                 nScore = 100;
             } else if (nScore <= 0) {
                 nScore = (nLength >= nMultLength) ? 1 : 0;
-            } 
+            }
             return nScore;
         }
         return 0;
     };
     // Strength public class definition
     var Strength = function(element, options) {
+        this.showMeter = options.showMeter;
+        this.toggleMask = options.toggleMask;
         this.verdictClasses = options.verdictClasses;
         this.verdictTitles = options.verdictTitles;
-        this.verdicts = this.parseVerdicts();
+        this.verdicts = this.generateVerdicts();
         this.toggleClass = options.toggleClass;
         this.toggleTitle = options.toggleTitle;
         this.meterClass = options.meterClass;
@@ -235,11 +245,14 @@
         this.inputTemplate = options.inputTemplate;
         this.meterTemplate = options.meterTemplate;
         this.mainTemplate = options.mainTemplate;
-        this.config = options.config;
+        this.rules = options.rules;
 
         this.$element = $(element);
+        if (isEmpty(this.$element.attr('id'))) {
+            this.$element.attr('id', uniqId());
+        }
         this.initialValue = isEmpty(this.$element.val()) ? 0 : this.$element.val();
-        var n = getScore(this.initialValue, this.config);
+        var n = getScore(this.initialValue, this.rules);
         this.$container = this.createContainer();
         this.$elToggle = this.$container.find('.kv-toggle');
         this.$elScorebar = this.$container.find('.kv-scorebar');
@@ -252,13 +265,15 @@
     };
     Strength.prototype = {
         constructor: Strength,
-        parseVerdicts: function() {
+        // generates the HTML markup for all verdicts
+        generateVerdicts: function() {
             var self = this, v = [];
             for (var i = 0; i < 6; i++) {
                 v[i] = '<div class="' + self.verdictClasses[i] + '">' + self.verdictTitles[i] + '</div>';
             }
             return v;
         },
+        // listens the password change and reset events
         listen: function() {
             var self = this;
             self.$element.on('keyup', function(e) {
@@ -271,9 +286,7 @@
                 self.toggle();
             });
         },
-        parseVerdict: function (nScore, text) {
-            
-        },
+        // paints the strength score
         paint: function(nScore) {
             var self = this, n = getVerdict(nScore);
             var sVerdict = self.verdicts[n];
@@ -282,38 +295,45 @@
             self.$elScore.html(nScore + "%");
             self.$elVerdict.html(sVerdict);
         },
+        // the change event triggered when password input is changed
         change: function(e, text) {
-            var self = this, nScore = getScore(text, self.config);
+            var self = this, nScore = getScore(text, self.rules);
             self.$elScoreInput.val(nScore);
             self.paint(nScore);
             self.$element.trigger('strength.change');
         },
+        // refresh method to update the strength score
+        refresh: function() {
+            var self = this;
+            var nScore = getScore(self.$element.val(), self.rules);
+            self.$elScoreInput.val(nScore);
+            self.paint(nScore);
+        },
+        // event on reset of the strength meter
         reset: function() {
-            var self = this, nScore = getScore(self.initialValue, self.config);
+            var self = this, nScore = getScore(self.initialValue, self.rules);
+            self.$elScoreInput.val(nScore);
             self.paint(nScore);
             replaceField(self.$element, 'password');
             self.$element.trigger('strength.reset');
         },
+        // event on update of the password toggle mask
         toggle: function() {
             var self = this;
             var inputType = self.$elToggle.is(":checked") ? 'text' : 'password';
             replaceField(self.$element, inputType);
             self.$element.trigger('strength.toggle');
         },
-        show: function() {
-            var self = this;
-            self.$elScorebar.show();
-            self.$elScore.show();
-            self.$elVerdict.show();
-            self.$element.trigger('strength.show');
+        // method that returns the current strength score
+        score: function() {
+            return this.$elScoreInput.val();
         },
-        hide: function() {
-            var self = this;
-            self.$elScorebar.hide();
-            self.$elScore.hide();
-            self.$elVerdict.hide();
-            self.$element.trigger('strength.hide');
+        // method that returns the verdict index
+        verdict: function() {
+            var self = this, nScore = this.$elScoreInput.val();
+            return getVerdict(nScore);
         },
+        // creates the widget container
         createContainer: function() {
             var self = this;
             var output = self.mainTemplate;
@@ -327,28 +347,41 @@
             holder.remove();
             return container;
         },
+        // renders the toggle mask
+        renderToggle: function() {
+            var self = this;
+            if (self.toggleMask) {
+                return '<input type="checkbox" class="' + self.toggleClass + '" title="' + self.toggleTitle + '">';
+            }
+            return '';
+        },
+        // renders the password input
         renderInput: function() {
             var self = this, output = self.inputTemplate;
             self.$element.removeClass(self.inputClass).addClass(self.inputClass);
             output = output.replace('{input}', '<div class="kv-temporary-input"></div>');
-            output = output.replace('{toggle}', '<input type="checkbox" class="' +
-                self.toggleClass + '" title="' + self.toggleTitle + '">');
+            output = output.replace('{toggle}', self.renderToggle());
             return output;
         },
+        // renders the strength meter
         renderMeter: function() {
             var self = this, output = self.meterTemplate;
-            output = output.replace('{scorebar}', '<div class="' + self.scoreBarClass + '"></div>');
-            output = output.replace('{score}', '<div class="' + self.scoreClass + '"></div>');
-            output = output.replace('{verdict}', '<div class="' + self.verdictClass + '"></div>');
-            return '<div class="' + self.meterClass + '">' + output + '</div>';
+            if (self.showMeter) {
+                output = output.replace('{scorebar}', '<div class="' + self.scoreBarClass + '"></div>');
+                output = output.replace('{score}', '<div class="' + self.scoreClass + '"></div>');
+                output = output.replace('{verdict}', '<div class="' + self.verdictClass + '"></div>');
+                return '<div class="' + self.meterClass + '">' + output + '</div>';
+            }
+            return '';
         }
     };
 
     //strength plugin definition
     $.fn.strength = function(option) {
         var args = Array.apply(null, arguments);
+        var retval = null;
         args.shift();
-        return this.each(function() {
+        this.each(function() {
             var $this = $(this),
                 data = $this.data('strength'),
                 options = typeof option === 'object' && option;
@@ -356,17 +389,22 @@
             if (!data) {
                 $this.data('strength', (data = new Strength(this, $.extend({}, $.fn.strength.defaults, options, $(this).data()))));
             }
-
             if (typeof option === 'string') {
-                data[option].apply(data, args);
+                retval = data[option].apply(data, args);
             }
         });
+        if (!retval && option !== 'score' && option !== 'verdict') {
+            retval = this;
+        }
+        return retval;
     };
 
     $.fn.strength.defaults = {
+        showMeter: true,
+        toggleMask: true,
         inputTemplate: '<div class="input-group">\n{input}\n<span class="input-group-addon">{toggle}</span>\n</div>',
         meterTemplate: '<div class="kv-scorebar-border">{scorebar}\n{score}</div>\n{verdict}',
-        mainTemplate: '<div class="row">\n<div class="col-sm-9">\n{input}</div>\n<div class="col-sm-2">{meter}</div></div>',
+        mainTemplate: '<table class="kv-container"><tr>\n<td>{input}</td>\n<td class="kv-meter-container"W>{meter}</td>\n</tr></table>',
         meterClass: 'kv-meter',
         scoreBarClass: 'kv-scorebar',
         scoreClass: 'kv-score',
@@ -375,14 +413,6 @@
         inputClass: 'form-control',
         toggleClass: 'kv-toggle',
         toggleTitle: 'Show/Hide Password',
-        verdictClasses: {
-            0: 'label label-default',
-            1: 'label label-danger',
-            2: 'label label-warning',
-            3: 'label label-info',
-            4: 'label label-primary',
-            5: 'label label-success',
-        },
         verdictTitles: {
             0: 'Too Short',
             1: 'Very Weak',
@@ -391,7 +421,15 @@
             4: 'Strong',
             5: 'Very Strong',
         },
-        config: {
+        verdictClasses: {
+            0: 'label label-default',
+            1: 'label label-danger',
+            2: 'label label-warning',
+            3: 'label label-info',
+            4: 'label label-primary',
+            5: 'label label-success',
+        },
+        rules: {
             midChar: 2,
             consecAlphaUC: 2,
             consecAlphaLC: 2,
@@ -406,8 +444,9 @@
     };
 
     /**
-     * Convert automatically number inputs with class 'rating' 
-     * into the star rating control.
+     * Convert automatically password inputs with class 'strength' 
+     * into the advance strength meter validated widget with ability
+     * to toggle the password mask.
      */
     $(function() {
         var $input = $('input.strength[type=password]');
