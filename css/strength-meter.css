@@ -24,6 +24,10 @@
 .kv-meter {
     text-align: center;
 }
+.kv-disabled {
+    opacity: .65;
+    cursor: not-allowed;
+}
 .kv-scorebar-border {
     background: none repeat scroll 0 0 #333;
     border: 1px solid #333;

@@ -351,7 +351,10 @@
         renderToggle: function() {
             var self = this;
             if (self.toggleMask) {
-                return '<input type="checkbox" class="' + self.toggleClass + '" title="' + self.toggleTitle + '">';
+                var disabled = self.$element.attr('disabled') ? ' disabled="true"' : '';
+                var readonly = self.$element.attr('readonly') ? ' readonly="true"' : '';
+                return '<input type="checkbox" class="' + self.toggleClass +
+                    '" title="' + self.toggleTitle + '"' + disabled + readonly + '>';
             }
             return '';
         },
@@ -370,7 +373,8 @@
                 output = output.replace('{scorebar}', '<div class="' + self.scoreBarClass + '"></div>');
                 output = output.replace('{score}', '<div class="' + self.scoreClass + '"></div>');
                 output = output.replace('{verdict}', '<div class="' + self.verdictClass + '"></div>');
-                return '<div class="' + self.meterClass + '">' + output + '</div>';
+                var css = self.$element.attr('disabled') ? self.meterClass + ' kv-disabled' : self.meterClass;
+                return '<div class="' + css + '">' + output + '</div>';
             }
             return '';
         }
