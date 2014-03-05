@@ -24,34 +24,26 @@
     };
     var replaceField = function(fld, typ) {
         var id = '#' + fld.attr('id');
-        fld.clone(true).attr('type', typ).insertAfter(id).prev().remove();
+        $(id).clone(true).attr('type', typ).insertAfter(id).prev().remove();
     };
     // Determine Verdict Index based on overall score
     var getVerdict = function(nScore) {
-        if (nScore === null) {
-            return 0;
-        }
         if (nScore <= 0) {
             return 0;
         }
-        if (nScore >= 100) {
-            return 5;
-        }
-        if (nScore <= 20) {
+        else if (nScore <= 20) {
             return 1;
         }
-        if (nScore > 20 && nScore <= 40) {
+        else if (nScore > 20 && nScore <= 40) {
             return 2;
         }
-        if (nScore > 40 && nScore <= 60) {
+        else if (nScore > 40 && nScore <= 60) {
             return 3;
         }
-        if (nScore > 60 && nScore <= 80) {
+        else if (nScore > 60 && nScore <= 80) {
             return 4;
         }
-        if (nScore > 80 && nScore < 100) {
-            return 5;
-        }
+        return 5;
     };
 
     // Calculate the score based on keyed in password text
@@ -220,17 +212,20 @@
 
             if (nScore > 100) {
                 nScore = 100;
-            } else if (nScore < 0) {
-                nScore = 0;
-            }
+            } else if (nScore <= 0) {
+                nScore = (nLength >= nMultLength) ? 1 : 0;
+            } 
             return nScore;
         }
         return 0;
     };
     // Strength public class definition
     var Strength = function(element, options) {
-        this.verdicts = options.verdicts;
+        this.verdictClasses = options.verdictClasses;
+        this.verdictTitles = options.verdictTitles;
+        this.verdicts = this.parseVerdicts();
         this.toggleClass = options.toggleClass;
+        this.toggleTitle = options.toggleTitle;
         this.meterClass = options.meterClass;
         this.scoreBarClass = options.scoreBarClass;
         this.scoreClass = options.scoreClass;
@@ -244,13 +239,12 @@
 
         this.$element = $(element);
         this.initialValue = isEmpty(this.$element.val()) ? 0 : this.$element.val();
-        var n = getScore(this.initialValue, this.config);;
+        var n = getScore(this.initialValue, this.config);
         this.$container = this.createContainer();
         this.$elToggle = this.$container.find('.kv-toggle');
         this.$elScorebar = this.$container.find('.kv-scorebar');
         this.$elScore = this.$container.find('.kv-score');
         this.$elVerdict = this.$container.find('.kv-verdict');
-        
         this.$elScoreInput = $(document.createElement("input")).attr('type', 'hidden').val(n);
         this.$container.append(this.$elScoreInput);
         this.paint(n);
@@ -258,6 +252,13 @@
     };
     Strength.prototype = {
         constructor: Strength,
+        parseVerdicts: function() {
+            var self = this, v = [];
+            for (var i = 0; i < 6; i++) {
+                v[i] = '<div class="' + self.verdictClasses[i] + '">' + self.verdictTitles[i] + '</div>';
+            }
+            return v;
+        },
         listen: function() {
             var self = this;
             self.$element.on('keyup', function(e) {
@@ -269,6 +270,9 @@
             self.$elToggle.on('change', function() {
                 self.toggle();
             });
+        },
+        parseVerdict: function (nScore, text) {
+            
         },
         paint: function(nScore) {
             var self = this, n = getVerdict(nScore);
@@ -287,6 +291,7 @@
         reset: function() {
             var self = this, nScore = getScore(self.initialValue, self.config);
             self.paint(nScore);
+            replaceField(self.$element, 'password');
             self.$element.trigger('strength.reset');
         },
         toggle: function() {
@@ -326,7 +331,8 @@
             var self = this, output = self.inputTemplate;
             self.$element.removeClass(self.inputClass).addClass(self.inputClass);
             output = output.replace('{input}', '<div class="kv-temporary-input"></div>');
-            output = output.replace('{toggle}', '<input type="checkbox" class="' + self.toggleClass + '">');
+            output = output.replace('{toggle}', '<input type="checkbox" class="' +
+                self.toggleClass + '" title="' + self.toggleTitle + '">');
             return output;
         },
         renderMeter: function() {
@@ -358,23 +364,32 @@
     };
 
     $.fn.strength.defaults = {
+        inputTemplate: '<div class="input-group">\n{input}\n<span class="input-group-addon">{toggle}</span>\n</div>',
+        meterTemplate: '<div class="kv-scorebar-border">{scorebar}\n{score}</div>\n{verdict}',
+        mainTemplate: '<div class="row">\n<div class="col-sm-9">\n{input}</div>\n<div class="col-sm-2">{meter}</div></div>',
         meterClass: 'kv-meter',
         scoreBarClass: 'kv-scorebar',
         scoreClass: 'kv-score',
         verdictClass: 'kv-verdict',
         containerClass: 'kv-password',
-        toggleClass: 'kv-toggle',
         inputClass: 'form-control',
-        inputTemplate: '<div class="input-group">\n{input}\n<span class="input-group-addon">{toggle}</span>\n</div>',
-        meterTemplate: '<div class="kv-scorebar-border">{scorebar}\n{score}</div>\n{verdict}',
-        mainTemplate: '<div class="row">\n<div class="col-sm-9">\n{input}</div>\n<div class="col-sm-2">{meter}</div></div>',
-        verdicts: {
-            0: '<div class="label label-default">Too Short</div>',
-            1: '<div class="label label-danger">Very Weak</div>',
-            2: '<div class="label label-warning">Weak</div>',
-            3: '<div class="label label-info">Good</div>',
-            4: '<div class="label label-primary">Strong</div>',
-            5: '<div class="label label-success">Very Strong</div>'
+        toggleClass: 'kv-toggle',
+        toggleTitle: 'Show/Hide Password',
+        verdictClasses: {
+            0: 'label label-default',
+            1: 'label label-danger',
+            2: 'label label-warning',
+            3: 'label label-info',
+            4: 'label label-primary',
+            5: 'label label-success',
+        },
+        verdictTitles: {
+            0: 'Too Short',
+            1: 'Very Weak',
+            2: 'Weak',
+            3: 'Good',
+            4: 'Strong',
+            5: 'Very Strong',
         },
         config: {
             midChar: 2,
