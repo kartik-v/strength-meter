@@ -149,10 +149,10 @@ _string_ the CSS class for displaying the meter. Defaults to `kv-meter`.
 _string_ the CSS class for displaying the strength score color bar. Defaults to `kv-scorebar`.
 
 #### scoreClass
-_string_ the CSS class for displaying the score. Defaults to `kv-score`.
+_string_ the CSS class for displaying the strength score. Defaults to `kv-score`.
 
 #### verdictClass
-_string_ the CSS class for displaying the verdict. Defaults to `kv-verdict`.
+_string_ the CSS class for displaying the strength verdict. Defaults to `kv-verdict`.
 
 #### containerClass
 _string_ the CSS class for wrapping the whole widget. Defaults to `kv-password`.
@@ -191,7 +191,7 @@ _array_ the verdict CSS classes corresponding to each strength verdict (0 to 6).
     }
 
 #### rules
-_array_ the strength validation rules. Defaults to:
+_array_ the strength validation rules. You normally do not need to change this, as this will impact the strength score algorithm. Defaults to:
 
     {
         midChar: 2,
@@ -208,16 +208,16 @@ _array_ the strength validation rules. Defaults to:
 
 Each rule element corresponds to the following:
 
-1. `midChar`: The multiplication factor (addition) for middle numbers or symbols.
-2. `consecAlphaUC`: The multiplication factor (reduction) for consecutive upper case alphabets.
-3. `consecAlphaLC`: The multiplication factor (reduction) for consecutive lower case alphabets.
-4. `consecNumber`: The multiplication factor (reduction) for consecutive numbers.
-5. `seqAlpha`: The multiplication factor (reduction) for sequential alphabets (3+).
-6. `seqNumber`: The multiplication factor (reduction) for sequential numbers (3+).
-7. `seqSymbol`: The multiplication factor (reduction) for sequential symbols (3+).
-8. `length`: The multiplication factor (addition) for the count of characters.
-9. `number`: The multiplication factor (addition) for count of numbers in the input.
-10. `symbol`: The multiplication factor (addition) for count of symbols in the input.
+- `midChar`: The multiplication factor (addition) for middle numbers or symbols.
+- `consecAlphaUC`: The multiplication factor (reduction) for consecutive upper case alphabets.
+- `consecAlphaLC`: The multiplication factor (reduction) for consecutive lower case alphabets.
+- `consecNumber`: The multiplication factor (reduction) for consecutive numbers.
+- `seqAlpha`: The multiplication factor (reduction) for sequential alphabets (3+).
+- `seqNumber`: The multiplication factor (reduction) for sequential numbers (3+).
+- `seqSymbol`: The multiplication factor (reduction) for sequential symbols (3+).
+- `length`: The multiplication factor (addition) for the count of characters.
+- `number`: The multiplication factor (addition) for count of numbers in the input.
+- `symbol`: The multiplication factor (addition) for count of symbols in the input.
 
 ### Plugin Events
 The plugin supports these events:
@@ -263,7 +263,7 @@ $('#password-id').strength('refresh');
 ```
 
 #### reset
-Reset the strength.
+Reset the strength to the score based on the initial value of the password. For example after a form reset.
 ```js
 $('#password-id').strength('reset');
 ```
