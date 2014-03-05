@@ -85,7 +85,7 @@ The `#input-id` is the identifier for the input (e.g. `type=password`) on your p
 Alternatively, you can directly call the plugin options by setting data attributes to your input field.
 
 ```html
-<input id="input-id" type="password" data-toggle-title="Display Password" >
+<input id="input-id" type="password" class="strength" data-toggle-title="Display Password" >
 ```
 
 ## Documentation
