@@ -4,8 +4,8 @@
  * 
  * A dynamic strength meter for password input validation with various configurable options.
  * 
- * The strength algorith rules are inspired from inputs on password meter 
- * created by Jeff Todnem (http://www.todnem.com/)
+ * The strength scoring calculation is inspired from [password meter](http://passwordmeter.com) 
+ * created by Jeff Todnem.
  * 
  * Built originally for Yii Framework 2.0. But is usable across frameworks & scenarios.
  * For more JQuery plugins visit http://plugins.krajee.com

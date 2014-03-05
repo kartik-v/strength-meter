@@ -1,7 +1,8 @@
 strength-meter
 ==============
 
-A dynamic strength meter for password input validation with various configurable options.
+A dynamic strength meter for password input validation with various configurable options. The strength scoring calculation is inspired from [password meter](http://passwordmeter.com) created by Jeff Todnem.
+
 
 ## Features  
 
