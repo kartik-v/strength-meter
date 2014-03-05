@@ -74,18 +74,18 @@ Step 2: Initialize the plugin on your page. For example,
 
 ```js
 // initialize with defaults
-$("#input-id").strength();
+$("#password-id").strength();
 
 // with plugin options
-$("#input-id").strength({showMeter: true, toggleMask: false});
+$("#password-id").strength({showMeter: true, toggleMask: false});
 ```
 
-The `#input-id` is the identifier for the input (e.g. `type=password`) on your page, which is hidden automatically by the plugin. 
+The `#password-id` is the identifier for the password input (`type=password`) on your page. 
 
 Alternatively, you can directly call the plugin options by setting data attributes to your input field.
 
 ```html
-<input id="input-id" type="password" class="strength" data-toggle-title="Display Password" >
+<input id="password-id" type="password" class="strength" data-toggle-title="Display Password" >
 ```
 
 ## Documentation
