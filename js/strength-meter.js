@@ -236,11 +236,11 @@
         this.verdicts = this.generateVerdicts();
         this.toggleClass = isEmpty(options.toggleClass) ? 'kv-toggle' : options.toggleClass;
         this.toggleTitle = options.toggleTitle;
-        this.meterClass = isEmpty(options.meterClass) ? 'kv-meter' : options.toggleClass;
-        this.scoreBarClass = isEmpty(options.scoreBarClass) ? 'kv-scorebar' : options.toggleClass;
-        this.scoreClass = isEmpty(options.scoreClass) ? 'kv-score' : options.toggleClass;
-        this.verdictClass = isEmpty(options.verdictClass) ? 'kv-verdict' : options.toggleClass;
-        this.containerClass = isEmpty(options.containerClass) ? 'kv-password' : options.toggleClass;
+        this.meterClass = isEmpty(options.meterClass) ? 'kv-meter' : options.meterClass;
+        this.scoreBarClass = isEmpty(options.scoreBarClass) ? 'kv-scorebar' : options.scoreBarClass;
+        this.scoreClass = isEmpty(options.scoreClass) ? 'kv-score' : options.scoreClass;
+        this.verdictClass = isEmpty(options.verdictClass) ? 'kv-verdict' : options.verdictClass;
+        this.containerClass = isEmpty(options.containerClass) ? 'kv-password' : options.containerClass;
         this.inputClass = options.inputClass;
         this.inputTemplate = options.inputTemplate;
         this.meterTemplate = options.meterTemplate;
