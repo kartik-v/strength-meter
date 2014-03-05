@@ -62,7 +62,7 @@ Step 1: Load the following assets in your header.
 
 If you noticed, you need to load the `jquery.min.js` and `bootstrap.min.css` in addition to the `star-strength.min.css` and `star-strength.min.js`. 
 
-*Note:* You can skip the `bootstrap.min.css` if you do not need Bootstrap 3.x styling.
+*Note:* You can skip the `bootstrap.min.css` if you do not need Bootstrap 3.x styling.  To use your own style, you need to setup the `inputTemplate`, `meterTemplate`, and `mainTemplate` options to match your CSS Styling needs.
 
 In addition, you can load a locale specific script for your language specific translation. For example to load German translations:
 
