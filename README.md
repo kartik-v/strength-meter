@@ -208,7 +208,16 @@ _array_ the strength validation rules. Defaults to:
 
 Each rule element corresponds to the following:
 
-1. `midChar`: 
+1. `midChar`: The multiplication factor (addition) for middle numbers or symbols.
+2. `consecAlphaUC`: The multiplication factor (reduction) for consecutive upper case alphabets.
+3. `consecAlphaLC`: The multiplication factor (reduction) for consecutive lower case alphabets.
+4. `consecNumber`: The multiplication factor (reduction) for consecutive numbers.
+5. `seqAlpha`: The multiplication factor (reduction) for sequential alphabets (3+).
+6. `seqNumber`: The multiplication factor (reduction) for sequential numbers (3+).
+7. `seqSymbol`: The multiplication factor (reduction) for sequential symbols (3+).
+8. `length`: The multiplication factor (addition) for minimum number of characters.
+9. `number`: The multiplication factor (addition) for count of numbers in the input.
+10. `symbol`: The multiplication factor (addition) for count of symbols in the input.
 
 ### Plugin Events
 The plugin supports these events:
