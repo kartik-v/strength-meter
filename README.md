@@ -215,7 +215,7 @@ Each rule element corresponds to the following:
 5. `seqAlpha`: The multiplication factor (reduction) for sequential alphabets (3+).
 6. `seqNumber`: The multiplication factor (reduction) for sequential numbers (3+).
 7. `seqSymbol`: The multiplication factor (reduction) for sequential symbols (3+).
-8. `length`: The multiplication factor (addition) for minimum number of characters.
+8. `length`: The multiplication factor (addition) for the count of characters.
 9. `number`: The multiplication factor (addition) for count of numbers in the input.
 10. `symbol`: The multiplication factor (addition) for count of symbols in the input.
 
