@@ -7,7 +7,7 @@
 	],
 	"description": "A dynamic strength meter for password input validation with various configurable options.",
 	"main": [
-		"./css/strength-meter.min.css",
+        "./css/strength-meter.min.css",
 		"./js/strength-meter.min.js"
 	],
 	"keywords": [
