@@ -353,7 +353,7 @@
             if (self.toggleMask) {
                 var disabled = self.$element.attr('disabled') ? ' disabled="true"' : '';
                 var readonly = self.$element.attr('readonly') ? ' readonly="true"' : '';
-                return '<input type="checkbox" class="' + self.toggleClass +
+                return '<input type="checkbox" tabindex=10000 class="' + self.toggleClass +
                     '" title="' + self.toggleTitle + '"' + disabled + readonly + '>';
             }
             return '';
