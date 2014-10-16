@@ -9,12 +9,12 @@
     $.extend($.fn.strength.defaults, {
         toggleTitle: 'Afficher / Masquer Mot de passe',
         verdictTitles: {
-            0: 'très court',
-            1: 'très faible',
-            2: 'faible',
-            3: 'bon',
-            4: 'fort',
-            5: 'très fort'
+            0: 'Trop Court',
+            1: 'Très Faible',
+            2: 'Faible',
+            3: 'Bon',
+            4: 'Fort',
+            5: 'Très Fort'
         }
     });
 })(jQuery);
