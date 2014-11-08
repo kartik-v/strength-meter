@@ -1,7 +1,7 @@
 /**
  * Strength Meter Italian translation.
  * This file must be saved in UTF-8 encoding.
- * @copyright &copy; Kartik Visweswaran, Krajee.com, 2013
+ * @copyright &copy; Kartik Visweswaran, Krajee.com, 2014
  */
 (function ($) {
     "use strict";

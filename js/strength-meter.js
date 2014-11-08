@@ -1,6 +1,6 @@
 /*!
- * @copyright &copy; Kartik Visweswaran, Krajee.com, 2013
- * @version 1.0.0
+ * @copyright &copy; Kartik Visweswaran, Krajee.com, 2014
+ * @version 1.1.0
  * 
  * A dynamic strength meter for password input validation with various configurable options.
  * 

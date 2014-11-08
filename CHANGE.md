@@ -1,5 +1,14 @@
+version 1.1.0
+=============
+**Date:** 08-Nov-2014
+
+1. Set release to stable in composer.json.
+2. Updated CHANGE log to reflect user friendly date time formats.
+
 version 1.0.0
 =============
+**Date:** 05-Mar-2014
+
 Strength meter plugin initial release with following features:
 
 1. Convert any password input to an advanced password strength validation plugin. Will fallback to a normal password input for browsers not supporting JQuery or Javascript.

@@ -3,7 +3,6 @@ strength-meter
 
 A dynamic strength meter for password input validation with various configurable options. The strength scoring calculation is inspired from [password meter](http://passwordmeter.com) created by Jeff Todnem.
 
-
 ## Features  
 
 1. Convert any password input to an advanced password strength validation plugin. Will fallback to a normal password input for browsers not supporting JQuery or Javascript.
@@ -21,6 +20,10 @@ A dynamic strength meter for password input validation with various configurable
 ## Demo
 
 View the [plugin documentation](http://plugins.krajee.com/strength-meter) and [plugin demos](http://plugins.krajee.com/strength-meter/demo) at Krajee JQuery plugins. 
+
+## Latest Release
+
+> NOTE: The latest version of the plugin v1.1.0 is released on 08-Nov-2014. Refer the [CHANGE LOG](https://github.com/kartik-v/strength-meter/blob/master/CHANGE.md) for details.
 
 ## Pre-requisites  
 
