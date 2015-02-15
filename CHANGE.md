@@ -1,3 +1,10 @@
+version 1.1.1
+=============
+**Date:** 15-Feb-2015
+
+1. Set copyright year to current.
+2. Code cleanup and JS lint changes.
+
 version 1.1.0
 =============
 **Date:** 08-Nov-2014
