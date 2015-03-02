@@ -28,9 +28,6 @@
         },
         isEmpty = function (value, trim) {
             return value === null || value === undefined || value.length === 0 || trim && $.trim(value) === '';
-        },
-        replaceField = function ($fld, typ) {
-            $fld.clone(true).attr('type', typ).insertAfter($fld).prev().remove();
         };
     // determine verdict index based on overall score
     var getVerdict = function (nScore) {
@@ -242,6 +239,13 @@
                 self[key] = val;
             }
         },
+        // sets input type
+        setType: function (typ) {
+            var self = this, $fld = self.$element, $newFld = $fld.clone(true);
+            $newFld.attr('type', typ).insertAfter($fld);
+            $fld.remove();
+            self.$element = $newFld;
+        },
         // generates the HTML markup for all verdicts
         generateVerdicts: function () {
             var self = this, v = [], i;
@@ -289,13 +293,13 @@
             var self = this, nScore = getScore(self.initialValue, self.rules);
             self.$elScoreInput.val(nScore);
             self.paint(nScore);
-            replaceField(self.$element, 'password');
+            self.setType('password');
             self.$element.trigger('strength.reset');
         },
         // update password toggle mask
         toggle: function () {
             var self = this, inputType = self.$elToggle.is(":checked") ? 'text' : 'password';
-            replaceField(self.$element, inputType);
+            self.setType(inputType);
             self.$element.trigger('strength.toggle');
         },
         // current strength score

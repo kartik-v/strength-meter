@@ -1,3 +1,9 @@
+version 1.1.2
+=============
+**Date:** 02-Mar-2015
+
+1. (bug #6): Correct input type change on toggle.
+
 version 1.1.1
 =============
 **Date:** 15-Feb-2015
