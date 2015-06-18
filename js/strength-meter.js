@@ -1,6 +1,6 @@
 /*!
  * @copyright &copy; Kartik Visweswaran, Krajee.com, 2015
- * @version 1.1.1
+ * @version 1.1.2
  * 
  * A dynamic strength meter for password input validation with various configurable options.
  * 
@@ -15,6 +15,8 @@
  */
 (function ($) {
     "use strict";
+
+    $.fn.strengthLocales = {};
 
     String.prototype.strReverse = function () {
         var newstring = "";
@@ -362,12 +364,16 @@
         var args = Array.apply(null, arguments), retval = null;
         args.shift();
         this.each(function () {
-            var $this = $(this),
-                data = $this.data('strength'),
-                options = typeof option === 'object' && option;
+            var $this = $(this), data = $this.data('strength'), defaults,
+                options = typeof option === 'object' && option,
+                lang = options.language || $this.data('language') || 'en';
 
             if (!data) {
-                data = new Strength(this, $.extend({}, $.fn.strength.defaults, options, $(this).data()));
+                defaults = $.extend({}, $.fn.strength.defaults);
+                if (lang !== 'en' && !isEmpty($.fn.strengthLocales[lang])) {
+                    defaults = $.extend(defaults, $.fn.strengthLocales[lang]);
+                }
+                data = new Strength(this, $.extend(defaults, options, $(this).data()));
                 $this.data('strength', data);
             }
             if (typeof option === 'string') {
@@ -379,8 +385,9 @@
         }
         return retval;
     };
-
+    
     $.fn.strength.defaults = {
+        language: 'en',
         showMeter: true,
         toggleMask: true,
         inputTemplate: '<div class="input-group">\n{input}\n<span class="input-group-addon">{toggle}</span>\n</div>',

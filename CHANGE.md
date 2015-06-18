@@ -1,8 +1,9 @@
 version 1.1.2
 =============
-**Date:** 02-Mar-2015
+**Date:** 18-Jun-2015
 
 1. (bug #6): Correct input type change on toggle.
+2. (enh #7): Ability to configure multi-lang plugins on same page (new `language` property).
 
 version 1.1.1
 =============

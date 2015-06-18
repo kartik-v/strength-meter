@@ -1,12 +1,13 @@
 /**
+ * @copyright &copy; Kartik Visweswaran, Krajee.com, 2015
+ * @version 1.1.2
  * Strength Meter Dutch translation.
  * This file must be saved in UTF-8 encoding.
- * @copyright &copy; Kartik Visweswaran, Krajee.com, 2015
  */
 (function ($) {
     "use strict";
 
-    $.extend($.fn.strength.defaults, {
+    $.fn.strengthLocales['nl'] = {
         toggleTitle: 'Wachtwoord tonen / verbergen',
         verdictTitles: {
             0: 'te kort',
@@ -16,5 +17,5 @@
             4: 'sterk',
             5: 'heel sterk'
         }
-    });
+    };
 })(jQuery);

@@ -3,7 +3,7 @@
     "description": "A dynamic strength meter for password input validation with various configurable options.",
     "keywords": ["bootstrap", "jquery", "password", "strength", "meter"],
     "homepage": "https://github.com/kartik-v/strength-meter",
-    "license": "BSD 3-Clause",
+    "license": "BSD-3-Clause",
     "authors": [
         {
             "name": "Kartik Visweswaran",

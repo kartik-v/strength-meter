@@ -1,12 +1,13 @@
 /**
- * Strength Meter German translation.
- * This file must be saved in UTF-8 encoding.
  * @copyright &copy; Kartik Visweswaran, Krajee.com, 2015
+ * @version 1.1.2
+ * Strength Meter Portugese Brazilian translation.
+ * This file must be saved in UTF-8 encoding.
  */
 (function ($) {
     "use strict";
 
-    $.extend($.fn.strength.defaults, {
+    $.fn.strengthLocales['pt-BR'] = {
         toggleTitle: 'Mostrar/Esconder Senha',
         verdictTitles: {
             0: 'Muito Curta',
@@ -16,5 +17,5 @@
             4: 'Forte',
             5: 'Muito Forte'
         }
-    });
+    };
 })(jQuery);

@@ -23,7 +23,7 @@ View the [plugin documentation](http://plugins.krajee.com/strength-meter) and [p
 
 ## Latest Release
 
-> NOTE: The latest version of the plugin is v1.1.1. Refer the [CHANGE LOG](https://github.com/kartik-v/strength-meter/blob/master/CHANGE.md) for details.
+> NOTE: The latest version of the plugin is v1.1.2. Refer the [CHANGE LOG](https://github.com/kartik-v/strength-meter/blob/master/CHANGE.md) for details.
 
 ## Pre-requisites  
 
@@ -41,11 +41,11 @@ You can use the `bower` package manager to install. Run:
 ### Using Composer
 You can use the `composer` package manager to install. Either run:
 
-    $ php composer.phar require kartik-v/strength-meter "dev-master"
+    $ php composer.phar require kartik-v/strength-meter "@dev"
 
 or add:
 
-    "kartik-v/strength-meter": "dev-master"
+    "kartik-v/strength-meter": "@dev"
 
 to your composer.json file
 
@@ -58,20 +58,20 @@ You can also manually install the plugin easily to your project. Just download t
 Step 1: Load the following assets in your header. 
 
 ```html
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">
-<link href="path/to/css/star-strength.min.css" media="all" rel="stylesheet" type="text/css" />
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+<link href="path/to/css/strength-meter.min.css" media="all" rel="stylesheet" type="text/css" />
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="path/to/js/star-strength.min.js" type="text/javascript"></script>
+<script src="path/to/js/strength-meter.min.js" type="text/javascript"></script>
 ```
 
-If you noticed, you need to load the `jquery.min.js` and `bootstrap.min.css` in addition to the `star-strength.min.css` and `star-strength.min.js`. 
+If you noticed, you need to load the `jquery.min.js` and `bootstrap.min.css` in addition to the `strength-meter.min.css` and `strength-meter.min.js`. 
 
 *Note:* You can skip the `bootstrap.min.css` if you do not need Bootstrap 3.x styling.  To use your own style, you need to setup the `inputTemplate`, `meterTemplate`, and `mainTemplate` options to match your CSS Styling needs.
 
 In addition, you can load a locale specific script for your language specific translation. For example to load German translations:
 
 ```html
-<script src="path/to/js/locales/star-strength-de.js" type="text/javascript"></script>
+<script src="path/to/js/locales/strength-meter-de.js" type="text/javascript"></script>
 ```
 
 Step 2: Initialize the plugin on your page. For example,
@@ -96,6 +96,9 @@ Alternatively, you can directly call the plugin options by setting data attribut
 
 ### Plugin Options
 The plugin supports these following options:
+
+### language
+_string_ language configuration for the plugin to enable the plugin to display messages for your locale (you must set the ISO code for the language). You can have multiple language widgets on the same page. Note you must load the language specific locale file `strength-meter-<LANG>.js` available in the `js/locales` folder of the plugin. The file must be loaded after `strength-meter.js`.
 
 #### showMeter
 _boolean_ whether the strength meter is to be displayed. Defaults to `true`.
