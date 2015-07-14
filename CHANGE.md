@@ -1,9 +1,9 @@
 version 1.1.2
 =============
-**Date:** 18-Jun-2015
+**Date:** 14-Jul-2015
 
-1. (bug #6): Correct input type change on toggle.
-2. (enh #7): Ability to configure multi-lang plugins on same page (new `language` property).
+1. (enh #7): Add ability to configure multi-language widgets on same page.
+2. (enh #8): New `inputNoToggleTemplate` for non toggle mask inputs.
 
 version 1.1.1
 =============

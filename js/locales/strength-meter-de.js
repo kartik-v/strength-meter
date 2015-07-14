@@ -1,13 +1,12 @@
 /**
- * @copyright &copy; Kartik Visweswaran, Krajee.com, 2015
- * @version 1.1.2
  * Strength Meter German translation.
  * This file must be saved in UTF-8 encoding.
+ * @copyright &copy; Kartik Visweswaran, Krajee.com, 2015
  */
 (function ($) {
     "use strict";
 
-    $.fn.strengthLocales['de'] =  {
+    $.fn.strengthLocales['de'] = {
         toggleTitle: 'Passwort anzeigen / ausblenden',
         verdictTitles: {
             0: 'zu kurz',

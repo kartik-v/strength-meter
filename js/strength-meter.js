@@ -15,7 +15,7 @@
  */
 (function ($) {
     "use strict";
-
+    
     $.fn.strengthLocales = {};
 
     String.prototype.strReverse = function () {
@@ -30,6 +30,9 @@
         },
         isEmpty = function (value, trim) {
             return value === null || value === undefined || value.length === 0 || trim && $.trim(value) === '';
+        },
+        replaceField = function ($fld, typ) {
+            $fld.clone(true).attr('type', typ).insertAfter($fld).prev().remove();
         };
     // determine verdict index based on overall score
     var getVerdict = function (nScore) {
@@ -241,13 +244,6 @@
                 self[key] = val;
             }
         },
-        // sets input type
-        setType: function (typ) {
-            var self = this, $fld = self.$element, $newFld = $fld.clone(true);
-            $newFld.attr('type', typ).insertAfter($fld);
-            $fld.remove();
-            self.$element = $newFld;
-        },
         // generates the HTML markup for all verdicts
         generateVerdicts: function () {
             var self = this, v = [], i;
@@ -295,13 +291,13 @@
             var self = this, nScore = getScore(self.initialValue, self.rules);
             self.$elScoreInput.val(nScore);
             self.paint(nScore);
-            self.setType('password');
+            replaceField(self.$element, 'password');
             self.$element.trigger('strength.reset');
         },
         // update password toggle mask
         toggle: function () {
             var self = this, inputType = self.$elToggle.is(":checked") ? 'text' : 'password';
-            self.setType(inputType);
+            replaceField(self.$element, inputType);
             self.$element.trigger('strength.toggle');
         },
         // current strength score
@@ -315,45 +311,40 @@
         },
         // creates the widget container
         createContainer: function () {
-            var self = this;
-            var output = self.mainTemplate;
-            output = output.replace('{input}', self.renderInput());
-            output = output.replace('{meter}', self.renderMeter());
-            var container = $(document.createElement("div")).attr({"class": self.containerClass}).html(output);
-            self.$element.before(container);
-            var holder = container.find('.kv-temporary-input');
-            var el = self.$element.detach();
-            holder.before(el);
-            holder.remove();
-            return container;
+            var self = this, output = self.mainTemplate, $container, $el;
+            output = output.replace('{input}', self.renderInput()).replace('{meter}', self.renderMeter());
+            $container = $(document.createElement("div")).addClass(self.containerClass).html(output);
+            self.$element.before($container);
+            $el = self.$element.detach();
+            $container.find('.kv-temporary-input').before($el).remove();
+            return $container;
         },
         // render toggle mask
         renderToggle: function () {
-            var self = this;
-            if (self.toggleMask) {
-                var disabled = self.$element.attr('disabled') ? ' disabled="true"' : '';
-                var readonly = self.$element.attr('readonly') ? ' readonly="true"' : '';
-                return '<input type="checkbox" tabindex=10000 class="' + self.toggleClass +
-                '" title="' + self.toggleTitle + '"' + disabled + readonly + '>';
-            }
-            return '';
+            var self = this,
+                disabled = self.$element.attr('disabled') ? ' disabled="true"' : '',
+                readonly = self.$element.attr('readonly') ? ' readonly="true"' : '';
+            return '<input type="checkbox" tabindex=10000 class="' + self.toggleClass +
+            '" title="' + self.toggleTitle + '"' + disabled + readonly + '>';
         },
         // render password input
         renderInput: function () {
-            var self = this, output = self.inputTemplate;
+            var self = this, output = self.toggleMask ? self.inputTemplate : self.inputNoToggleTemplate;
             self.$element.removeClass(self.inputClass).addClass(self.inputClass);
             output = output.replace('{input}', '<div class="kv-temporary-input"></div>');
-            output = output.replace('{toggle}', self.renderToggle());
+            if (self.toggleMask) {
+                output = output.replace('{toggle}', self.renderToggle());
+            }
             return output;
         },
         // render strength meter
         renderMeter: function () {
-            var self = this, output = self.meterTemplate;
+            var self = this, output = self.meterTemplate, css;
             if (self.showMeter) {
-                output = output.replace('{scorebar}', '<div class="' + self.scoreBarClass + '"></div>');
-                output = output.replace('{score}', '<div class="' + self.scoreClass + '"></div>');
-                output = output.replace('{verdict}', '<div class="' + self.verdictClass + '"></div>');
-                var css = self.$element.attr('disabled') ? self.meterClass + ' kv-disabled' : self.meterClass;
+                output = output.replace('{scorebar}', '<div class="' + self.scoreBarClass + '"></div>')
+                    .replace('{score}', '<div class="' + self.scoreClass + '"></div>')
+                    .replace('{verdict}', '<div class="' + self.verdictClass + '"></div>');
+                css = self.$element.attr('disabled') ? self.meterClass + ' kv-disabled' : self.meterClass;
                 return '<div class="' + css + '">' + output + '</div>';
             }
             return '';
@@ -364,7 +355,8 @@
         var args = Array.apply(null, arguments), retval = null;
         args.shift();
         this.each(function () {
-            var $this = $(this), data = $this.data('strength'), defaults,
+            var $this = $(this), defaults,
+                data = $this.data('strength'),
                 options = typeof option === 'object' && option,
                 lang = options.language || $this.data('language') || 'en';
 
@@ -385,12 +377,13 @@
         }
         return retval;
     };
-    
+
     $.fn.strength.defaults = {
         language: 'en',
         showMeter: true,
         toggleMask: true,
         inputTemplate: '<div class="input-group">\n{input}\n<span class="input-group-addon">{toggle}</span>\n</div>',
+        inputNoToggleTemplate: '{input}',
         meterTemplate: '<div class="kv-scorebar-border">{scorebar}\n{score}</div>\n{verdict}',
         mainTemplate: '<table class="kv-strength-container"><tr>\n<td>{input}</td>\n<td class="kv-meter-container">{meter}</td>\n</tr></table>',
         meterClass: 'kv-meter',
@@ -400,15 +393,6 @@
         containerClass: 'kv-password',
         inputClass: 'form-control',
         toggleClass: 'kv-toggle',
-        toggleTitle: 'Show/Hide Password',
-        verdictTitles: {
-            0: 'Too Short',
-            1: 'Very Weak',
-            2: 'Weak',
-            3: 'Good',
-            4: 'Strong',
-            5: 'Very Strong'
-        },
         verdictClasses: {
             0: 'label label-default',
             1: 'label label-danger',
@@ -431,6 +415,20 @@
         }
     };
 
+    $.fn.strengthLocales.en = {
+        toggleTitle: 'Show/Hide Password',
+        verdictTitles: {
+            0: 'Too Short',
+            1: 'Very Weak',
+            2: 'Weak',
+            3: 'Good',
+            4: 'Strong',
+            5: 'Very Strong'
+        }
+    };
+    
+    $.extend($.fn.strength.defaults, $.fn.strengthLocales.en);
+    
     $.fn.strength.Constructor = Strength;
 
     /**

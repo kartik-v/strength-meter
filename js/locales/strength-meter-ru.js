@@ -1,12 +1,10 @@
 /**
- * @copyright &copy; Kartik Visweswaran, Krajee.com, 2015
- * @version 1.1.2
  * Strength Meter Russian translation.
  * This file must be saved in UTF-8 encoding.
+ * @copyright &copy; Kartik Visweswaran, Krajee.com, 2015
  */
 (function ($) {
     "use strict";
-
     $.fn.strengthLocales['ru'] = {
         toggleTitle: 'Показать / Скрыть пароль',
         verdictTitles: {
