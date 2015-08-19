@@ -7,7 +7,7 @@
     "use strict";
 
     $.fn.strengthLocales['zh-CN'] = {
-        toggleTitle: '显示/隐藏 密码',
+        toggleTitle: '显示/隐藏密码',
         verdictTitles: {
             0: '太短',
             1: '非常弱',
