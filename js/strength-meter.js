@@ -1,6 +1,6 @@
 /*!
  * @copyright &copy; Kartik Visweswaran, Krajee.com, 2015
- * @version 1.1.2
+ * @version 1.1.3
  * 
  * A dynamic strength meter for password input validation with various configurable options.
  * 
@@ -31,8 +31,10 @@
         isEmpty = function (value, trim) {
             return value === null || value === undefined || value.length === 0 || trim && $.trim(value) === '';
         },
-        replaceField = function ($fld, typ) {
-            $fld.clone(true).attr('type', typ).insertAfter($fld).prev().remove();
+        replaceField = function (obj, typ) {
+            var $fld = obj.$element, $el = $fld.clone(true).attr('type', typ).insertAfter($fld);
+            $fld.remove();
+            obj.$element = $el;
         };
     // determine verdict index based on overall score
     var getVerdict = function (nScore) {
@@ -291,13 +293,13 @@
             var self = this, nScore = getScore(self.initialValue, self.rules);
             self.$elScoreInput.val(nScore);
             self.paint(nScore);
-            replaceField(self.$element, 'password');
+            replaceField(self, 'password');
             self.$element.trigger('strength.reset');
         },
         // update password toggle mask
         toggle: function () {
             var self = this, inputType = self.$elToggle.is(":checked") ? 'text' : 'password';
-            replaceField(self.$element, inputType);
+            replaceField(self, inputType);
             self.$element.trigger('strength.toggle');
         },
         // current strength score

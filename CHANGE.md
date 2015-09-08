@@ -1,3 +1,10 @@
+version 1.1.3
+=============
+**Date:** 08-Sep-2015
+
+1. (enh #10): Add Chinese translations.
+2. (enh #11): More correct field type replacing on toggle
+
 version 1.1.2
 =============
 **Date:** 14-Jul-2015
