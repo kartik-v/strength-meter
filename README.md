@@ -23,7 +23,7 @@ View the [plugin documentation](http://plugins.krajee.com/strength-meter) and [p
 
 ## Latest Release
 
-> NOTE: The latest version of the plugin is v1.1.2. Refer the [CHANGE LOG](https://github.com/kartik-v/strength-meter/blob/master/CHANGE.md) for details.
+> NOTE: The latest version of the plugin is v1.1.3. Refer the [CHANGE LOG](https://github.com/kartik-v/strength-meter/blob/master/CHANGE.md) for details.
 
 ## Pre-requisites  
 
@@ -47,7 +47,7 @@ or add:
 
     "kartik-v/strength-meter": "dev-master"
 
-to your composer.json file
+to the `require` section of your composer.json file
 
 ### Manual Install
 
@@ -58,7 +58,7 @@ You can also manually install the plugin easily to your project. Just download t
 Step 1: Load the following assets in your header. 
 
 ```html
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
 <link href="path/to/css/star-strength.min.css" media="all" rel="stylesheet" type="text/css" />
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="path/to/js/star-strength.min.js" type="text/javascript"></script>
