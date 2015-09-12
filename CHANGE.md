@@ -1,35 +1,35 @@
 Change Log: `strength-meter`
 ============================
 
-version 1.1.3
+## Version 1.1.3
 
 **Date:** 13-Sep-2015
 
 1. (enh #10): Add Chinese translations.
 2. (enh #11): More correct field type replacing on toggle.
 
-version 1.1.2
+## Version 1.1.2
 
 **Date:** 14-Jul-2015
 
 1. (enh #7): Add ability to configure multi-language widgets on same page.
 2. (enh #8): New `inputNoToggleTemplate` for non toggle mask inputs.
 
-version 1.1.1
+## Version 1.1.1
 
 **Date:** 15-Feb-2015
 
 1. Set copyright year to current.
 2. Code cleanup and JS lint changes.
 
-version 1.1.0
+## Version 1.1.0
 
 **Date:** 08-Nov-2014
 
 1. Set release to stable in composer.json.
 2. Updated CHANGE log to reflect user friendly date time formats.
 
-version 1.0.0
+## Version 1.0.0
 
 **Date:** 05-Mar-2014
 
