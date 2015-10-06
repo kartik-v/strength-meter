@@ -1,12 +1,12 @@
 /*!
  * @copyright &copy; Kartik Visweswaran, Krajee.com, 2015
  * @version 1.1.3
- * 
+ *
  * A dynamic strength meter for password input validation with various configurable options.
- * 
- * The strength scoring calculation is inspired from [password meter](http://passwordmeter.com) 
+ *
+ * The strength scoring calculation is inspired from [password meter](http://passwordmeter.com)
  * created by Jeff Todnem.
- * 
+ *
  * Built originally for Yii Framework 2.0. But is usable across frameworks & scenarios.
  * For more JQuery plugins visit http://plugins.krajee.com
  * For more Yii related demos visit http://demos.krajee.com
@@ -15,7 +15,7 @@
  */
 (function ($) {
     "use strict";
-    
+
     $.fn.strengthLocales = {};
 
     String.prototype.strReverse = function () {
@@ -45,7 +45,7 @@
     };
     // the main scoring algorithm - calculates score based on entered password text
     var getScore = function (text, rules) {
-        if (isEmpty(text)) {
+        if (isEmpty(text) || text.length < rules.minLength) {
             return 0;
         }
         var nAlphaUC = 0, nAlphaLC = 0, nNumber = 0, nSymbol = 0, nMidChar = 0, nUnqChar = 0, nRepChar = 0,
@@ -404,6 +404,7 @@
             5: 'label label-success'
         },
         rules: {
+            minLength: 8,
             midChar: 2,
             consecAlphaUC: 2,
             consecAlphaLC: 2,
@@ -428,9 +429,9 @@
             5: 'Very Strong'
         }
     };
-    
+
     $.extend($.fn.strength.defaults, $.fn.strengthLocales.en);
-    
+
     $.fn.strength.Constructor = Strength;
 
     /**
