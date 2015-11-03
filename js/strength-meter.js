@@ -215,6 +215,7 @@
         $.each(options, function (key, value) {
             self[key] = value;
         });
+        self.rules = $.extend({}, $.fn.strength.defaults.rules, self.rules);
         self.$element = $(element);
         self.verdicts = self.generateVerdicts();
         self.setDefault('toggleClass', 'kv-toggle');
