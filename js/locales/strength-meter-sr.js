@@ -7,7 +7,7 @@
     "use strict";
 
     $.extend($.fn.strength.defaults, {
-        toggleTitle: 'Mostrar / Ocultar contraseña',
+        toggleTitle: 'Sakrij / Prikaži lozinku',
         verdictTitles: {
             0: 'Prekratka',
             1: 'Vrlo slaba',
