@@ -44,9 +44,7 @@
 }
 
 .kv-scorebar {
-    background-image: url(../img/bg_strength_gradient.jpg);
-    background-repeat: no-repeat;
-    background-position: 0 0;
+    background: url(../img/bg_strength_gradient.jpg) no-repeat 0 0;
     position: absolute;
     width: 98px;
     height: 14px;

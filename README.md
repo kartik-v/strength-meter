@@ -8,7 +8,7 @@ A dynamic strength meter for password input validation with various configurable
 1. Convert any password input to an advanced password strength validation plugin. Will fallback to a normal password input for browsers not supporting JQuery or Javascript.
 2. The plugin will offer ability to toggle password mask (show/hide password text) and display a dynamic strength meter as you type. Uses advanced strength calculation algorithm which can be customized by setting/overriding the default validation `rules`.
 3. The plugin automatically converts an input with `type = password` to the strength validation plugin if you set its `class = strength`. All options to the password input can be passed as HTML5 `data` attributes.
-4. Configurable templates to control the style and display of the entire plugin. The password input and the various components of the strength meter can be customized. The default template uses Bootstrap 3.x markup to display the password input, toggle, and strength meter.
+4. Configurable templates to control the style and display of the entire plugin. The password input and the various components of the strength meter can be customized. The default template uses styling compatible with Bootstrap 3.x & Bootstrap 4.x markup to display the password input, toggle, and strength meter.
 5. Internationalization enabled to show messages in languages other than Englsh. At this stage translations are available for 4 languages (German, French, Italian, and Russian). The titles for verdicts and toggle mask can be configured.
 6. Show and hide meter and/or toggle password mask
 7. Reset plugin to the initial value when the form is reset.
@@ -29,7 +29,7 @@ View the [plugin documentation](http://plugins.krajee.com/strength-meter) and [p
 
 1. Latest [JQuery](http://jquery.com/)
 2. Most modern browsers supporting CSS3 & JQuery. For Internet Explorer, one must use IE versions 9 and above.
-3. [Bootstrap 3.x](http://getbootstrap.com/) is optional. The plugin templates use the Bootstrap 3.x markup by default. So for the default markup to render correct, you would need Bootstrap 3.x CSS to view the styles properly. If you do not wish to use Bootstrap, you can easily override the templates with your markup and styles.
+3. [Bootstrap 4.x](http://getbootstrap.com/) (or bootstrap 3.x) is supported by default for styling. But usage of this framework is optional. The plugin templates use the Bootstrap 3.x markup by default. So for the default markup to render correct, you would need Bootstrap 3.x CSS to view the styles properly. If you do not wish to use Bootstrap, you can easily override the templates with your markup and styles.
 
 ## Installation
 
