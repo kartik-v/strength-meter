@@ -23,7 +23,7 @@ View the [plugin documentation](http://plugins.krajee.com/strength-meter) and [p
 
 ## Latest Release
 
-> NOTE: The latest version of the plugin is v1.1.3. Refer the [CHANGE LOG](https://github.com/kartik-v/strength-meter/blob/master/CHANGE.md) for details.
+> NOTE: The latest version of the plugin is v1.1.4. Refer the [CHANGE LOG](https://github.com/kartik-v/strength-meter/blob/master/CHANGE.md) for details.
 
 ## Pre-requisites  
 
