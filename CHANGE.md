@@ -3,7 +3,7 @@ Change Log: `strength-meter`
 
 ## Version 1.1.4
 
-**Date:** 04-Sep-2017
+**Date:** 20-Jan-2018
 
 - Add github contribution and issue/PR logging templates.
 - (enh #21): Enhancements to plugin initialization & events (BC breaking).

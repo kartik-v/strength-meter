@@ -389,7 +389,7 @@
         language: 'en',
         showMeter: true,
         toggleMask: true,
-        inputTemplate: '<div class="input-group">\n{input}\n<span class="input-group-addon">{toggle}</span>\n</div>',
+        inputTemplate: '<div class="input-group">\n{input}\n<span class="input-group-addon input-group-append"><span class="input-group-text">{toggle}</span></span>\n</div>',
         inputNoToggleTemplate: '{input}',
         meterTemplate: '<div class="kv-scorebar-border">{scorebar}\n{score}</div>\n{verdict}',
         mainTemplate: '<table class="kv-strength-container"><tr>\n<td>{input}</td>\n<td class="kv-meter-container">{meter}</td>\n</tr></table>',
