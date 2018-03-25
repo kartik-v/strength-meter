@@ -7,14 +7,14 @@
     "use strict";
 
     $.fn.strengthLocales['pt-BR'] = {
-        toggleTitle: 'Mostrar/Esconder Senha',
+        toggleTitle: 'Mostrar/Esconder a senha',
         verdictTitles: {
-            0: 'Muito Curta',
-            1: 'Muito Fraca',
+            0: 'Muito curta',
+            1: 'Muito fraca',
             2: 'Fraca',
             3: 'Boa',
             4: 'Forte',
-            5: 'Muito Forte'
+            5: 'Muito forte'
         }
     };
 })(jQuery);
