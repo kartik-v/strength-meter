@@ -6,7 +6,7 @@
 (function ($) {
     "use strict";
 
-    $.extend($.fn.strength.defaults, {
+    $.fn.strengthLocales['es'] = {
         toggleTitle: 'Mostrar / Ocultar contraseña',
         verdictTitles: {
             0: 'Muy corta',
@@ -16,5 +16,5 @@
             4: 'Fuerte',
             5: 'Muy Fuerte'
         }
-    });
+    };
 })(jQuery);
