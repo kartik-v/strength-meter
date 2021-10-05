@@ -45,7 +45,7 @@
 
 .kv-scorebar {
     background: url(../img/bg_strength_gradient.jpg) no-repeat 0 0;
-    position: absolute;
+    position: relative;
     width: 98px;
     height: 14px;
     z-index: 0;
@@ -55,10 +55,11 @@
 .kv-score {
     font-size: 12px;
     line-height: 13px;
-    position: absolute;
+    position: relative;
     width: 98px;
     z-index: 10;
     border-radius: 2px;
+    bottom: 13px;
 }
 
 .kv-score-0, .kv-score-1, .kv-score-5 {
