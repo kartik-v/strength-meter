@@ -6,7 +6,7 @@
 (function ($) {
     "use strict";
 
-    $.fn.strengthLocales['es'] = {
+    $.fn.strengthLocales['el'] = {
         toggleTitle: 'Εμφάνιση/Απόκρυψη κωδικού',
         verdictTitles: {
             0: 'Πολύ σύντομο',
